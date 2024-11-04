@@ -1,0 +1,8 @@
+0000000000400af0 <explode>:
+  400af0:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  400af4:	910003fd 	mov	x29, sp
+  400af8:	90000320 	adrp	x0, 464000 <free_mem+0x40>
+  400afc:	9120c000 	add	x0, x0, #0x830
+  400b00:	94004c08 	bl	413b20 <_IO_puts>
+  400b04:	52800000 	mov	w0, #0x0                   	// #0
+  400b08:	94001412 	bl	405b50 <exit>

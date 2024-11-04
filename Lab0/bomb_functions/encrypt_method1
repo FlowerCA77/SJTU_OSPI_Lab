@@ -1,0 +1,40 @@
+00000000004008c4 <encrypt_method1>:                                       //  x0<-&input(x20), x1<-stelen(input)(x19)
+  4008c4:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  4008c8:	910003fd 	mov	x29, sp
+  4008cc:	910043e2 	add	x2, sp, #0x10                                     //                x2=sp+10
+  4008d0:	3821c85f 	strb	wzr, [x2, w1, sxtw]                             //                *(x2+w1)=0
+  4008d4:	0b417c23 	add	w3, w1, w1, lsr #31                               //                w3 = w1 + (w1>>31)
+  4008d8:	13017c63 	asr	w3, w3, #1                                        //                w3 >> 1
+  4008dc:	7100043f 	cmp	w1, #0x1                                          //                if (w1<=1)
+  4008e0:	540003cd 	b.le	400958 <encrypt_method1+0x94>                   //                    goto 400958
+  4008e4:	aa0203e4 	mov	x4, x2                                            //                x4=x2
+  4008e8:	d2800002 	mov	x2, #0x0                   	// #0                 //                x2=0
+  4008ec:	d37ff845 	lsl	x5, x2, #1                                        // 4008ec:        x5=x2<<1
+  4008f0:	38656805 	ldrb	w5, [x0, x5]                                    //                w5=*(x0+x5)
+  4008f4:	38001485 	strb	w5, [x4], #1                                    //                *(x4+1)=w5
+  4008f8:	91000442 	add	x2, x2, #0x1                                      //                x2++
+  4008fc:	6b02007f 	cmp	w3, w2                                            //                if(w3>w2)
+  400900:	54ffff6c 	b.gt	4008ec <encrypt_method1+0x28>                   //                    goto 4008ec
+  400904:	7100007f 	cmp	w3, #0x0                                          //                w5 = (w3>0) ?
+  400908:	1a9fc465 	csinc	w5, w3, wzr, gt                                 //                    w3 : 0
+  40090c:	6b05003f 	cmp	w1, w5                                            // 40090c:        if(w1<=w5)
+  400910:	540001cd 	b.le	400948 <encrypt_method1+0x84>                   //                    goto 400948
+  400914:	4b050024 	sub	w4, w1, w5                                        //                w4=w1-w5
+  400918:	4b0300a2 	sub	w2, w5, w3                                        //                w2=w5-w3
+  40091c:	8b22c402 	add	x2, x0, w2, sxtw #1                               //                x2=x0+(x2+1)
+  400920:	91000442 	add	x2, x2, #0x1                                      //                x2++
+  400924:	d2800001 	mov	x1, #0x0                   	// #0                 //                x1=0
+  400928:	910043e3 	add	x3, sp, #0x10                                     //                x3=sp+16
+  40092c:	8b25c065 	add	x5, x3, w5, sxtw                                  //                x5=x3+w5
+  400930:	d37ff823 	lsl	x3, x1, #1                                        // 400930:        x3=x1<<1
+  400934:	38636843 	ldrb	w3, [x2, x3]                                    //                w3=*(x2+x3)
+  400938:	382168a3 	strb	w3, [x5, x1]                                    //                *(x5+x1)=w3
+  40093c:	91000421 	add	x1, x1, #0x1                                      //                x1++
+  400940:	eb04003f 	cmp	x1, x4                                            //                if(x1!=x4)
+  400944:	54ffff61 	b.ne	400930 <encrypt_method1+0x6c>  // b.any         //                     goto 400930
+  400948:	910043e1 	add	x1, sp, #0x10                                     // 400948:        x1=sp+10
+  40094c:	940084dd 	bl	421cc0 <strcpy>                                   //                call strcpy
+  400950:	a8c27bfd 	ldp	x29, x30, [sp], #32                               //                return
+  400954:	d65f03c0 	ret
+  400958:	52800005 	mov	w5, #0x0                   	// #0                 // 400958:        w5=0
+  40095c:	17ffffec 	b	40090c <encrypt_method1+0x48>                       //                goto 40090c

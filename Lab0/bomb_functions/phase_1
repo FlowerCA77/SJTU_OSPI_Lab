@@ -1,0 +1,11 @@
+0000000000400760 <phase_1>:
+  400760:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  400764:	910003fd 	mov	x29, sp
+  400768:	90000501 	adrp	x1, 4a0000 <_GLOBAL_OFFSET_TABLE_+0x470>
+  40076c:	f9402c21 	ldr	x1, [x1, #88]
+  400770:	94008504 	bl	421b80 <strcmp>
+  400774:	35000060 	cbnz	w0, 400780 <phase_1+0x20>
+  400778:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  40077c:	d65f03c0 	ret
+  400780:	940000dc 	bl	400af0 <explode>
+  400784:	17fffffd 	b	400778 <phase_1+0x18>

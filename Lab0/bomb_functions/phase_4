@@ -1,0 +1,27 @@
+00000000004009e0 <phase_4>:
+  4009e0:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  4009e4:	910003fd 	mov	x29, sp                           // x29 is sp
+  4009e8:	a90153f3 	stp	x19, x20, [sp, #16]
+  4009ec:	aa0003f3 	mov	x19, x0
+  4009f0:	97fffe44 	bl	400300 <.plt+0x60>
+  4009f4:	aa0003f4 	mov	x20, x0
+  4009f8:	7100281f 	cmp	w0, #0xa                          // input is a string with len <= 10
+  4009fc:	540001ec 	b.gt	400a38 <phase_4+0x58>
+  400a00:	2a1403e1 	mov	w1, w20                           //  x1<-stelen(input)
+  400a04:	aa1303e0 	mov	x0, x19                           //  x0<-&input
+  400a08:	97ffffaf 	bl	4008c4 <encrypt_method1>          //  helloworla -> hweolrllod
+  400a0c:	2a1403e1 	mov	w1, w20                           //  x1<-stelen(input)
+  400a10:	aa1303e0 	mov	x0, x19                           //  x0<-&input
+  400a14:	97ffffd3 	bl	400960 <encrypt_method2>          //  hweolrllod -> itssgvgksq
+  400a18:	90000500 	adrp	x0, 4a0000 <_GLOBAL_OFFSET_TABLE_+0x470>
+  400a1c:	f9403401 	ldr	x1, [x0, #104]
+  400a20:	aa1303e0 	mov	x0, x19
+  400a24:	94008457 	bl	421b80 <strcmp>                   //  x0: input->encrypt_method1->encrypt_method2, x1: isggstsvkq
+  400a28:	350000c0 	cbnz	w0, 400a40 <phase_4+0x60>
+  400a2c:	a94153f3 	ldp	x19, x20, [sp, #16]
+  400a30:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  400a34:	d65f03c0 	ret
+  400a38:	9400002e 	bl	400af0 <explode>
+  400a3c:	17fffff1 	b	400a00 <phase_4+0x20>
+  400a40:	9400002c 	bl	400af0 <explode>
+  400a44:	17fffffa 	b	400a2c <phase_4+0x4c>

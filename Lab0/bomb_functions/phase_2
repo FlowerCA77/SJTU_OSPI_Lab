@@ -1,0 +1,30 @@
+0000000000400788 <phase_2>:
+  400788:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
+  40078c:	910003fd 	mov	x29, sp
+  400790:	a90153f3 	stp	x19, x20, [sp, #16]
+  400794:	910083e1 	add	x1, sp, #0x20
+  400798:	940000f8 	bl	400b78 <read_8_numbers>               // F=sp+(32,36,40,44,48,52,56,60)
+  40079c:	b94023e0 	ldr	w0, [sp, #32]
+  4007a0:	7100041f 	cmp	w0, #0x1                              // sp+32=F[0]==1
+  4007a4:	54000081 	b.ne	4007b4 <phase_2+0x2c>  // b.any
+  4007a8:	b94027e0 	ldr	w0, [sp, #36]
+  4007ac:	7100041f 	cmp	w0, #0x1                              // sp+36=F[1]==1
+  4007b0:	54000040 	b.eq	4007b8 <phase_2+0x30>  // b.none
+  4007b4:	940000cf 	bl	400af0 <explode>
+  4007b8:	910083f3 	add	x19, sp, #0x20                        //     x19=&F[0]     
+  4007bc:	9100e3f4 	add	x20, sp, #0x38                        //     x20=&F[6]
+  4007c0:	14000004 	b	4007d0 <phase_2+0x48>                   //     goto 48
+  4007c4:	91001273 	add	x19, x19, #0x4                        //3c:  x19.next()     next:F[i]->F[i+1]
+  4007c8:	eb14027f 	cmp	x19, x20                              //     if(x19==x20)
+  4007cc:	54000120 	b.eq	4007f0 <phase_2+0x68>  // b.none    //          return
+  4007d0:	b9400260 	ldr	w0, [x19]                             //48:  x0=*x19
+  4007d4:	b9400661 	ldr	w1, [x19, #4]                         //     x1=*(x19.next)
+  4007d8:	0b010000 	add	w0, w0, w1                            //     x0+=x1
+  4007dc:	b9400a61 	ldr	w1, [x19, #8]                         //     x1=*(x19.next.next)
+  4007e0:	6b00003f 	cmp	w1, w0                                //     if(x1==x0)
+  4007e4:	54ffff00 	b.eq	4007c4 <phase_2+0x3c>  // b.none    //          goto 3c
+  4007e8:	940000c2 	bl	400af0 <explode>
+  4007ec:	17fffff6 	b	4007c4 <phase_2+0x3c>
+  4007f0:	a94153f3 	ldp	x19, x20, [sp, #16]
+  4007f4:	a8c47bfd 	ldp	x29, x30, [sp], #64
+  4007f8:	d65f03c0 	ret

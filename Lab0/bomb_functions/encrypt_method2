@@ -1,0 +1,33 @@
+0000000000400960 <encrypt_method2>:                                       //  x0<-&input(x20), x1<-stelen(input)(x19)
+  400960:	7100003f 	cmp	w1, #0x0
+  400964:	540003cd 	b.le	4009dc <encrypt_method2+0x7c>                   //          if w1<=0 return
+  400968:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+  40096c:	910003fd 	mov	x29, sp
+  400970:	a90153f3 	stp	x19, x20, [sp, #16]                               //          x19, x20 <- sp+16  (x19=sp+16,x20=sp+24)
+  400974:	a9025bf5 	stp	x21, x22, [sp, #32]                               //          x21, x22 <- sp+32  (x21=sp+32,x22=sp+40)
+  400978:	aa0003f3 	mov	x19, x0                                           //          x19 = x0
+  40097c:	8b21c015 	add	x21, x0, w1, sxtw                                 //          x21 = x0+w1
+  400980:	90000516 	adrp	x22, 4a0000 <_GLOBAL_OFFSET_TABLE_+0x470>       //          x22 = 4a0000            |   *x22 =
+  400984:	910162d6 	add	x22, x22, #0x58                                   //          x22 = x22+0x58 (4a0058) |   &("qwerty...bnm")-8
+  400988:	14000009 	b	4009ac <encrypt_method2+0x4c>                       //          goto 4009ac
+  40098c:	39400281 	ldrb	w1, [x20]                                       // 40098c:  w1 = (int8_t)*x20       |   w1=x20[0]
+  400990:	f94006c0 	ldr	x0, [x22, #8]                                     //          x0 = *(x22+8)           |   *x0="qwerty...bnm"
+  400994:	8b010000 	add	x0, x0, x1                                        //          x0=x0+x1                |   
+  400998:	3859f000 	ldurb	w0, [x0, #-97]                                  //          w0 = (uint8_t)*(x0-97)  |   
+  40099c:	39000280 	strb	w0, [x20]                                       //          *x20 = w0               |   x20=&x0[x1-'a']
+  4009a0:	91000673 	add	x19, x19, #0x1                                    //          x19++                   |   x19++
+  4009a4:	eb15027f 	cmp	x19, x21                                          //          if (x19==x21)           |   if (x19==x21)
+  4009a8:	54000120 	b.eq	4009cc <encrypt_method2+0x6c>  // b.none        //               goto 4009cc      __|__     return
+  4009ac:	aa1303f4 	mov	x20, x19                                          // 4009ac:  x20 = x19               |   x20 = x19
+  4009b0:	39400260 	ldrb	w0, [x19]                                       //          w0 = (int8_t)*x19       |
+  4009b4:	51018400 	sub	w0, w0, #0x61                                     //          w0 -= 0x61 (97)         |   
+  4009b8:	12001c00 	and	w0, w0, #0xff                                     //          w0 &= 0xFF              |   w0 = x19[0]-'a'
+  4009bc:	7100641f 	cmp	w0, #0x19                                         //          if (w0==0x19) (25)      |   if(w0==25) ('z')
+  4009c0:	54fffe69 	b.ls	40098c <encrypt_method2+0x2c>  // b.plast       //               goto 40098c        |       goto 40098c
+  4009c4:	9400004b 	bl	400af0 <explode>                                  //          explode()
+  4009c8:	17fffff1 	b	40098c <encrypt_method2+0x2c>                       //          goto 40098c
+  4009cc:	a94153f3 	ldp	x19, x20, [sp, #16]                               // 4009cc:
+  4009d0:	a9425bf5 	ldp	x21, x22, [sp, #32]                               //          return
+  4009d4:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  4009d8:	d65f03c0 	ret
+  4009dc:	d65f03c0 	ret

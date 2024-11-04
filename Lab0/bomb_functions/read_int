@@ -1,0 +1,13 @@
+0000000000400bd0 <read_int>:
+  400bd0:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  400bd4:	910003fd 	mov	x29, sp
+  400bd8:	910073e2 	add	x2, sp, #0x1c
+  400bdc:	90000321 	adrp	x1, 464000 <free_mem+0x40>
+  400be0:	91214021 	add	x1, x1, #0x850
+  400be4:	94001867 	bl	406d80 <__isoc99_sscanf>
+  400be8:	7100001f 	cmp	w0, #0x0
+  400bec:	5400008d 	b.le	400bfc <read_int+0x2c>
+  400bf0:	b9401fe0 	ldr	w0, [sp, #28]
+  400bf4:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  400bf8:	d65f03c0 	ret
+  400bfc:	97ffffbd 	bl	400af0 <explode>

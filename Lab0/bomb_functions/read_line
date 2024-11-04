@@ -1,0 +1,28 @@
+0000000000400b0c <read_line>:                                             //      
+  400b0c:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!                             //      
+  400b10:	910003fd 	mov	x29, sp                                           //      
+  400b14:	f00004e0 	adrp	x0, 49f000 <tunable_list+0x560>                 //      
+  400b18:	f946d000 	ldr	x0, [x0, #3488]                                   //      
+  400b1c:	f9400002 	ldr	x2, [x0]                                          //       x2=*49fda0
+  400b20:	52800a21 	mov	w1, #0x51                  	// #81                //       x1=0x51=81
+  400b24:	d0000500 	adrp	x0, 4a2000 <_IO_helper_jumps+0x60>              //       
+  400b28:	9104e000 	add	x0, x0, #0x138                                    //       x0=4a2138
+  400b2c:	94004a79 	bl	413510 <_IO_fgets>                                //       fgets(x0, x1, x2)
+  400b30:	d2800000 	mov	x0, #0x0                   	// #0                 //       x0=0
+  400b34:	d0000502 	adrp	x2, 4a2000 <_IO_helper_jumps+0x60>              //       
+  400b38:	9104e042 	add	x2, x2, #0x138                                    //       x2=49fed8
+  400b3c:	38626801 	ldrb	w1, [x0, x2]                                    //lb_30: x1=*(x0+x2)
+  400b40:	34000141 	cbz	w1, 400b68 <read_line+0x5c>                       //       if(x1==0) goto lb_5c
+  400b44:	7100283f 	cmp	w1, #0xa                                          //       if(x1==10)
+  400b48:	540000a0 	b.eq	400b5c <read_line+0x50>  // b.none              //           goto lb_50
+  400b4c:	91000400 	add	x0, x0, #0x1                                      //       x0++
+  400b50:	f101401f 	cmp	x0, #0x50                                         //       if(x0!=80)
+  400b54:	54ffff41 	b.ne	400b3c <read_line+0x30>  // b.any               //           goto lb_30
+  400b58:	97ffffe6 	bl	400af0 <explode>                                  //       explode()
+  400b5c:	d0000501 	adrp	x1, 4a2000 <_IO_helper_jumps+0x60>              //lb_50: 
+  400b60:	9104e021 	add	x1, x1, #0x138                                    //       x1=4a2138
+  400b64:	3820c83f 	strb	wzr, [x1, w0, sxtw]                             //       *(x1+x0+sxtw)=wzr
+  400b68:	d0000500 	adrp	x0, 4a2000 <_IO_helper_jumps+0x60>              //lb_5c:    
+  400b6c:	9104e000 	add	x0, x0, #0x138                                    //       x0=4a2138
+  400b70:	a8c17bfd 	ldp	x29, x30, [sp], #16                               //      
+  400b74:	d65f03c0 	ret                                                   //      

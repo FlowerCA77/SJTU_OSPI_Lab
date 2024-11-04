@@ -1,0 +1,30 @@
+0000000000400694 <main>:                                      // int main() {
+  400694:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!                 //
+  400698:	910003fd 	mov	x29, sp                               //
+  40069c:	90000320 	adrp	x0, 464000 <free_mem+0x40>          //
+  4006a0:	911de000 	add	x0, x0, #0x778                        //    char* input;
+  4006a4:	94004d1f 	bl	413b20 <_IO_puts>                     //    printf("Type in your defuse password!\n");
+  4006a8:	94000119 	bl	400b0c <read_line>                    //    input = read_line();
+  4006ac:	94000022 	bl	400734 <phase_0>                      //    phase_0(input);
+  4006b0:	94000016 	bl	400708 <phase_defused>                //    phase_defused();
+  4006b4:	94000116 	bl	400b0c <read_line>                    //    input = read_line();
+  4006b8:	9400002a 	bl	400760 <phase_1>                      //    phase_1(input);
+  4006bc:	94000013 	bl	400708 <phase_defused>                //    phase_defused();
+  4006c0:	94000113 	bl	400b0c <read_line>                    //    input = read_line();
+  4006c4:	94000031 	bl	400788 <phase_2>                      //    phase_2(input);
+  4006c8:	94000010 	bl	400708 <phase_defused>                //    phase_defused();
+  4006cc:	94000110 	bl	400b0c <read_line>                    //    input = read_line();
+  4006d0:	9400004b 	bl	4007fc <phase_3>                      //    phase_3(input);
+  4006d4:	9400000d 	bl	400708 <phase_defused>                //    phase_defused();
+  4006d8:	9400010d 	bl	400b0c <read_line>                    //    input = read_line();
+  4006dc:	940000c1 	bl	4009e0 <phase_4>                      //    phase_4(input);
+  4006e0:	9400000a 	bl	400708 <phase_defused>                //    phase_defused();
+  4006e4:	9400010a 	bl	400b0c <read_line>                    //    input = read_line();
+  4006e8:	940000f5 	bl	400abc <phase_5>                      //    phase_5(input);
+  4006ec:	94000007 	bl	400708 <phase_defused>                //    phase_defused();
+  4006f0:	90000320 	adrp	x0, 464000 <free_mem+0x40>          //
+  4006f4:	911e6000 	add	x0, x0, #0x798                        //
+  4006f8:	94004d0a 	bl	413b20 <_IO_puts>                     //    printf("Congrats! You have defused all phases!\n");
+  4006fc:	52800000 	mov	w0, #0x0                              //
+  400700:	a8c17bfd 	ldp	x29, x30, [sp], #16                   //    return 0;
+  400704:	d65f03c0 	ret                                       // }

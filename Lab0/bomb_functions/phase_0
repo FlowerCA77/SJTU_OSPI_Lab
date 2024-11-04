@@ -1,0 +1,12 @@
+0000000000400734 <phase_0>:                                             // auto phase_0(...) {
+  400734:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!                           //    
+  400738:	910003fd 	mov	x29, sp                                         //    
+  40073c:	94000125 	bl	400bd0 <read_int>                               //    x0 = read_int(...)
+  400740:	90000501 	adrp	x1, 4a0000 <_GLOBAL_OFFSET_TABLE_+0x470>      //    
+  400744:	b9405421 	ldr	w1, [x1, #84]                                   //    x1 = *4a0054
+  400748:	6b00003f 	cmp	w1, w0                                          //    if(x1!=x0)
+  40074c:	54000061 	b.ne	400758 <phase_0+0x24>  // b.any               //        explode()
+  400750:	a8c17bfd 	ldp	x29, x30, [sp], #16                             //    
+  400754:	d65f03c0 	ret                                                 // }
+  400758:	940000e6 	bl	400af0 <explode>                                //
+  40075c:	17fffffd 	b	400750 <phase_0+0x1c>                             //
